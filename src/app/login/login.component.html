@@ -1,0 +1,52 @@
+<div class="confirmationModal">
+
+  <div class="popupBox">
+    <div class="cardMat popupBoxBody">
+      <h3 class="text-center active">To view hidden resources <br> please <br> Login </h3>
+      <div class="row">
+        <div class="col-12">
+          <form  [formGroup]="loginForm">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" formControlName="emailId"
+              class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+              <div *ngIf = 'controls?.emailId?.touched &&
+               controls?.emailId?.errors?.required' class="alert alert-danger">
+                Field is required
+              </div>
+              <div *ngIf = '!controls?.emailId?.pristine && controls?.emailId?.errors?.email' class="alert alert-danger">
+               Please enter a valid email id
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" formControlName="password"
+               class="form-control" id="exampleInputPassword1"
+                placeholder="Password">
+                <div *ngIf = 'controls?.password?.touched &&
+                controls?.password?.errors?.required' class="alert alert-danger">
+                 Field is required
+               </div>
+               <div *ngIf = '!controls?.password?.pristine &&
+               (controls?.password?.errors?.minlength?.actualLength < controls?.password?.errors?.minlength?.requiredLength)'
+               class="alert alert-danger">
+                Minimum 5 characters required
+               </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center align-items-center clickHereSection mt-4">
+
+        <button  class="btn btn-outline-primary" (click)="closeTCModal()">Cancel</button>
+        <button class="btn btn-outline-success" type="submit" [disabled]="loginForm?.status==='INVALID'"
+          (click)="checkCredentials(loginForm?.value)">Sign-In</button>
+      </div>
+      <div  *ngIf="invalidCreds" class="alert alert-danger" role="alert">
+        <span *ngIf="invalidCreds">Invalid Credentials <strong>Try Again!</strong></span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
